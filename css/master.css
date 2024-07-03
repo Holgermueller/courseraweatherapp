@@ -1,4 +1,9 @@
-body {
+body,
+html {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #d7d7d7;
   color: black;
 }

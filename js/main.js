@@ -1,18 +1,27 @@
 "use strict";
-const fs = require("fs");
-const csvFile = fs.readFileSync("./city_coordinates.csv");
-const arr = csvFile.toString().split("\n");
-// console.log(arr);
-let jsonObject = [];
-let headers = arr[0].split(",");
-// console.log(headers);
-for (let i = 1; i < arr.length; i++) {
-  let data = arr[i].split(",");
-  let object = {};
-  console.log(data);
-  for (let j = 0; j < data.length; j++) {
-    object[headers[j].trim()] = data[j].trim();
-  }
-  jsonObject.push(object);
+
+// Convert CSV to JSON
+async function createSelector() {
+  const file = await fetch("../city_coordinates.csv")
+    .then((response) => {
+      return response.text();
+    })
+    .then((data) => {
+      let result = [];
+      let lines = data.split("\n");
+      let headers = lines[0].split(",");
+
+      for (let i = 1; i < lines.length; i++) {
+        let obj = {};
+        let currentLine = lines[i].split(",");
+
+        for (let j = 0; j < headers.length; j++) {
+          obj[headers[j]] = currentLine[j];
+        }
+        result.push(obj);
+      }
+      console.log(result);
+    });
 }
-console.log(JSON.stringify(jsonObject));
+
+createSelector();
