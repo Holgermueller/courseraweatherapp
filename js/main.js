@@ -21,6 +21,13 @@ async function createSelector() {
         result.push(obj);
       }
       console.log(result);
+      for (let i = 0; i < result.length; i++) {
+        let selector = document.getElementById("citySelector");
+        let opt = document.createElement("option");
+        console.log(opt);
+        opt.innerHTML = result[i].city + ", " + result[i].country;
+        selector.appendChild(opt);
+      }
     });
 }
 
