@@ -2,7 +2,7 @@
 
 // Convert CSV to JSON
 async function createSelector() {
-  const file = await fetch("../city_coordinates.csv")
+  await fetch("../city_coordinates.csv")
     .then((response) => {
       return response.text();
     })
@@ -20,15 +20,24 @@ async function createSelector() {
         }
         result.push(obj);
       }
-      console.log(result);
       for (let i = 0; i < result.length; i++) {
         let selector = document.getElementById("citySelector");
         let opt = document.createElement("option");
-        console.log(opt);
+        opt.setAttribute("id", result[i].city);
+        opt.setAttribute("data-lat", result[i].latitude);
+        opt.setAttribute("data-long", result[i].longitude);
+        opt.setAttribute("value", result[i].city);
+
         opt.innerHTML = result[i].city + ", " + result[i].country;
         selector.appendChild(opt);
       }
     });
 }
+
+const selectCity = (opt) => {
+  let selectedCity = document.getElementById("citySelector").value;
+  let lat = document.getElementById("citySelector").dataset.long;
+  console.log(selectedCity, lat);
+};
 
 createSelector();
