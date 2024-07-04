@@ -34,10 +34,12 @@ async function createSelector() {
     });
 }
 
-const selectCity = (opt) => {
-  let selectedCity = document.getElementById("citySelector").value;
-  let lat = document.getElementById("citySelector").dataset.long;
-  console.log(selectedCity, lat);
+let selectedCity = document.getElementById("citySelector");
+
+selectedCity.onchange = function (event) {
+  let latitude = event.target.options[event.target.selectedIndex].dataset.lat;
+  let longitude = event.target.options[event.target.selectedIndex].dataset.long;
+  console.log(event.target.options[event.target.selectedIndex].dataset.lat);
 };
 
 createSelector();
