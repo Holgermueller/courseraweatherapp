@@ -40,6 +40,19 @@ selectedCity.onchange = function (event) {
   let latitude = event.target.options[event.target.selectedIndex].dataset.lat;
   let longitude = event.target.options[event.target.selectedIndex].dataset.long;
   console.log(event.target.options[event.target.selectedIndex].dataset.lat);
+
+  fetch(
+    "http://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=civillight&output=json"
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data.dataseries);
+    })
+    .catch((err) => {
+      console.warn(err);
+    });
 };
 
 createSelector();
