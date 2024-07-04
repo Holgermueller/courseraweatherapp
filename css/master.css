@@ -9,10 +9,46 @@ html {
   text-align: center;
 }
 
+.weather-display {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.weather-block {
+  background-color: hsl(100, 100%, 0%);
+  color: hsl(0, 0%, 100%);
+  border-radius: 10px;
+  margin: 5%;
+}
+
+.icon-display {
+  margin: auto;
+}
+
 footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
   text-align: center;
+  font-size: 0.75rem;
+  padding: 8px auto;
+}
+
+@media screen and (min-width: 600px) {
+  body,
+  html {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+  }
+
+  .weather-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }
