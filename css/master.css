@@ -28,6 +28,10 @@ html {
   border: none;
 }
 
+.conversion-buttons button:focus {
+  background-color: var(--yellow);
+}
+
 .fahrenheit {
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -67,6 +71,14 @@ html {
 
 .icon-display {
   margin: auto;
+}
+
+.temps {
+  display: block;
+}
+
+.fahrenheits {
+  display: none;
 }
 
 footer {

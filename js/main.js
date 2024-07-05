@@ -182,11 +182,17 @@ const getTheWeather = (event) => {
         let maxTemp = datum.temp2m.max;
         let minTemp = datum.temp2m.min;
 
-        convertCelciustoFahrenheitMax(maxTemp);
-        convertCelciustoFahrenheitMin(minTemp);
-
         tempDisplay.innerHTML =
           "H: " + maxTemp + "&deg;C/L: " + minTemp + "&deg;C";
+
+        let maxFahreneheit = (maxTemp * 9) / 5 + 32;
+        let minFahrenheit = (minTemp * 9) / 5 + 32;
+
+        const fahrenheitDisplay = document.createElement("p");
+        fahrenheitDisplay.classList.add("fahrenheits");
+
+        fahrenheitDisplay.innerHTML =
+          "H: " + maxFahreneheit + "&deg;F/L: " + minFahrenheit + "&deg;F";
 
         weatherBlock = document.createElement("div");
         weatherBlock.classList.add("weather-block");
@@ -194,6 +200,7 @@ const getTheWeather = (event) => {
         weatherBlock.appendChild(iconDisplay);
         weatherBlock.appendChild(singleWeatherDisplay);
         weatherBlock.appendChild(tempDisplay);
+        weatherBlock.appendChild(fahrenheitDisplay);
 
         weatherDisplay.appendChild(weatherBlock);
       });
@@ -215,23 +222,28 @@ const hideProcessing = () => {
   proc.style.display = "none";
 };
 
-const convertCelciustoFahrenheitMax = (maxTemp) => {
-  let convertedMax = (maxTemp * 9) / 5 + 32;
-  console.log(convertedMax);
-};
-
-const convertCelciustoFahrenheitMin = (minTemp) => {
-  let convertedMin = (minTemp * 9) / 5 + 32;
-
-  return convertedMin;
-};
-
 const seeF = () => {
-  console.log("click");
+  let cTempsToDisplay = document.getElementsByClassName("temps");
+  for (let i = 0; i < cTempsToDisplay.length; i++) {
+    cTempsToDisplay[i].style.display = "none";
+  }
+
+  let fTempsToDisplay = document.getElementsByClassName("fahrenheits");
+  for (let i = 0; i < fTempsToDisplay.length; i++) {
+    fTempsToDisplay[i].style.display = "block";
+  }
 };
 
 const seeC = () => {
-  console.log("click");
+  let cTempsToDisplay = document.getElementsByClassName("temps");
+  for (let i = 0; i < cTempsToDisplay.length; i++) {
+    cTempsToDisplay[i].style.display = "block";
+  }
+
+  let fTempsToDisplay = document.getElementsByClassName("fahrenheits");
+  for (let i = 0; i < fTempsToDisplay.length; i++) {
+    fTempsToDisplay[i].style.display = "none";
+  }
 };
 
 hideProcessing();
