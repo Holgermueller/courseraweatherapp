@@ -15,10 +15,34 @@ html {
   text-align: center;
 }
 
+.display-area {
+  margin: 5% 0;
+  background-color: blue;
+  min-height: 50vh;
+}
+
+.conversion-buttons button {
+  margin-top: 8px;
+  font-size: 1.5rem;
+  padding: 8px 24px;
+  border: none;
+}
+
+.fahrenheit {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.celcius {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
 .processing {
   text-align: center;
   margin: 5% auto;
   font-size: 2rem;
+  color: var(--white);
 }
 
 .weather-display {

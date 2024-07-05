@@ -1,9 +1,16 @@
 "use strict";
 
 let weatherBlock;
+let correctedWeather;
 const selectedCity = document.getElementById("citySelector");
 const weatherDisplay = document.getElementById("weatherDisplay");
 const proc = document.getElementById("processing");
+
+const showDate = () => {
+  let DateTime = luxon.DateTime.toLocaleString();
+};
+
+showDate();
 
 async function createSelector() {
   await fetch("../city_coordinates.csv")
@@ -67,23 +74,20 @@ const getTheWeather = (event) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data.dataseries);
-
       let allData = data.dataseries;
       allData.forEach((datum) => {
-        let dateDisplay = document.createElement("p");
-        const formattedDate = new Date("MMM DD YYYY");
+        const dateDisplay = document.createElement("p");
         dateDisplay.classList.add("date");
-        dateDisplay.innerHTML = datum.date;
+        let dateToDisplay = datum.date;
+        dateDisplay.innerHTML = dateToDisplay;
 
-        let iconDisplay = document.createElement("img");
+        const iconDisplay = document.createElement("img");
         iconDisplay.classList.add("icon-display");
 
-        let singleWeatherDisplay = document.createElement("p");
+        const singleWeatherDisplay = document.createElement("p");
         singleWeatherDisplay.classList.add("weather");
         let weather = datum.weather;
 
-        let correctedWeather;
         if (weather === "ishower") {
           correctedWeather = "Isolated Showers";
         } else if (weather === "lightrain") {
@@ -172,10 +176,17 @@ const getTheWeather = (event) => {
           iconDisplay.src = "./images/windy.png";
         }
 
-        let tempDisplay = document.createElement("p");
+        const tempDisplay = document.createElement("p");
         tempDisplay.classList.add("temps");
+
+        let maxTemp = datum.temp2m.max;
+        let minTemp = datum.temp2m.min;
+
+        convertCelciustoFahrenheitMax(maxTemp);
+        convertCelciustoFahrenheitMin(minTemp);
+
         tempDisplay.innerHTML =
-          "H: " + datum.temp2m.max + "&deg;C/L: " + datum.temp2m.min + "&deg;C";
+          "H: " + maxTemp + "&deg;C/L: " + minTemp + "&deg;C";
 
         weatherBlock = document.createElement("div");
         weatherBlock.classList.add("weather-block");
@@ -202,6 +213,25 @@ const showProcessing = () => {
 
 const hideProcessing = () => {
   proc.style.display = "none";
+};
+
+const convertCelciustoFahrenheitMax = (maxTemp) => {
+  let convertedMax = (maxTemp * 9) / 5 + 32;
+  console.log(convertedMax);
+};
+
+const convertCelciustoFahrenheitMin = (minTemp) => {
+  let convertedMin = (minTemp * 9) / 5 + 32;
+
+  return convertedMin;
+};
+
+const seeF = () => {
+  console.log("click");
+};
+
+const seeC = () => {
+  console.log("click");
 };
 
 hideProcessing();

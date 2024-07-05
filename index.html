@@ -33,7 +33,11 @@
         </select>
       </form>
 
-      <section>
+      <section class="display-area">
+        <div class="conversion-buttons" id="conversion-buttons">
+          <button class="fahrenheit" onclick="seeF()">F</button
+          ><button class="celcius" onclick="seeC()">C</button>
+        </div>
         <div class="processing" id="processing">Processing...</div>
         <div class="weather-display" id="weatherDisplay"></div>
       </section>
@@ -50,6 +54,7 @@
     </footer>
 
     <!-- Our codes -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
