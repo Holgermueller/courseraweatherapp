@@ -1,7 +1,9 @@
 "use strict";
 
 let weatherBlock;
+const selectedCity = document.getElementById("citySelector");
 const weatherDisplay = document.getElementById("weatherDisplay");
+const proc = document.getElementById("processing");
 
 async function createSelector() {
   await fetch("../city_coordinates.csv")
@@ -23,7 +25,7 @@ async function createSelector() {
         result.push(obj);
       }
       for (let i = 0; i < result.length; i++) {
-        let selector = document.getElementById("citySelector");
+        const selector = document.getElementById("citySelector");
         let opt = document.createElement("option");
         opt.setAttribute("id", result[i].city);
         opt.setAttribute("data-lat", result[i].latitude);
@@ -36,15 +38,23 @@ async function createSelector() {
     });
 }
 
-let selectedCity = document.getElementById("citySelector");
-
 selectedCity.onchange = function (event) {
-  let latitude = event.target.options[event.target.selectedIndex].dataset.lat;
-  let longitude = event.target.options[event.target.selectedIndex].dataset.long;
+  showProcessing();
 
   if (weatherBlock) {
     resetWeatherDisplay();
   }
+
+  setTimeout(() => {
+    getTheWeather(event);
+
+    hideProcessing();
+  }, 3000);
+};
+
+const getTheWeather = (event) => {
+  let latitude = event.target.options[event.target.selectedIndex].dataset.lat;
+  let longitude = event.target.options[event.target.selectedIndex].dataset.long;
 
   fetch(
     "http://www.7timer.info/bin/api.pl?lon=" +
@@ -62,6 +72,7 @@ selectedCity.onchange = function (event) {
       let allData = data.dataseries;
       allData.forEach((datum) => {
         let dateDisplay = document.createElement("p");
+        const formattedDate = new Date("MMM DD YYYY");
         dateDisplay.classList.add("date");
         dateDisplay.innerHTML = datum.date;
 
@@ -164,7 +175,7 @@ selectedCity.onchange = function (event) {
         let tempDisplay = document.createElement("p");
         tempDisplay.classList.add("temps");
         tempDisplay.innerHTML =
-          datum.temp2m.min + "&deg;/" + datum.temp2m.max + "&deg;";
+          "H: " + datum.temp2m.max + "&deg;C/L: " + datum.temp2m.min + "&deg;C";
 
         weatherBlock = document.createElement("div");
         weatherBlock.classList.add("weather-block");
@@ -182,7 +193,16 @@ selectedCity.onchange = function (event) {
 };
 
 const resetWeatherDisplay = () => {
-  if (weatherBlock) weatherDisplay.replaceChildren(weatherBlock);
+  if (weatherBlock) weatherDisplay.innerHTML = "";
 };
 
+const showProcessing = () => {
+  proc.style.display = "block";
+};
+
+const hideProcessing = () => {
+  proc.style.display = "none";
+};
+
+hideProcessing();
 createSelector();

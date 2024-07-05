@@ -1,3 +1,9 @@
+:root {
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(100, 100%, 0%);
+  --yellow: hsl(56, 100%, 50%);
+}
+
 body,
 html {
   padding: 0;
@@ -9,6 +15,12 @@ html {
   text-align: center;
 }
 
+.processing {
+  text-align: center;
+  margin: 5% auto;
+  font-size: 2rem;
+}
+
 .weather-display {
   width: 90%;
   margin: auto;
@@ -18,10 +30,15 @@ html {
 }
 
 .weather-block {
-  background-color: hsl(100, 100%, 0%);
-  color: hsl(0, 0%, 100%);
+  background-color: var(--black);
+  color: var(--white);
   border-radius: 10px;
   margin: 5%;
+  padding: 16px 0;
+}
+
+.date {
+  color: var(--yellow);
 }
 
 .icon-display {
@@ -36,6 +53,11 @@ footer {
   text-align: center;
   font-size: 0.75rem;
   padding: 8px auto;
+}
+
+footer a {
+  text-decoration: none;
+  color: hsl(0, 0%, 100%);
 }
 
 @media screen and (min-width: 600px) {
