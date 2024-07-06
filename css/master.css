@@ -15,6 +15,28 @@ html {
   text-align: center;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form * {
+  margin: 8px auto;
+}
+
+label {
+  font-weight: bold;
+}
+
+select {
+  width: 90%;
+  margin: auto;
+  border-radius: 15px;
+  padding: 8px;
+  text-align: center;
+  font-size: 1.25rem;
+}
+
 .display-area {
   margin: 5% 0;
   background-color: blue;
@@ -49,6 +71,11 @@ html {
   color: var(--white);
 }
 
+.city-name-display {
+  font-size: 2rem;
+  color: hsl(0, 0%, 100%);
+}
+
 .weather-display {
   width: 90%;
   margin: auto;
@@ -68,14 +95,17 @@ html {
 .date {
   color: var(--yellow);
   margin: 12px;
+  font-size: 1.5rem;
 }
 
 .icon-display {
   margin: auto;
 }
 
-.temps {
+.temps,
+.fahrenheits {
   display: block;
+  font-weight: bold;
 }
 
 .fahrenheits {

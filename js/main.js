@@ -1,9 +1,11 @@
 "use strict";
 
 let weatherBlock;
+let cityNameText;
 let correctedWeather;
 const selectedCity = document.getElementById("citySelector");
 const weatherDisplay = document.getElementById("weatherDisplay");
+const cityNameDisplay = document.getElementById("cityNameDisplay");
 const proc = document.getElementById("processing");
 
 async function createSelector() {
@@ -46,6 +48,8 @@ selectedCity.onchange = function (event) {
     resetWeatherDisplay();
   }
 
+  resetCityNameDisplay();
+
   setTimeout(() => {
     getTheWeather(event);
 
@@ -56,6 +60,14 @@ selectedCity.onchange = function (event) {
 const getTheWeather = (event) => {
   let latitude = event.target.options[event.target.selectedIndex].dataset.lat;
   let longitude = event.target.options[event.target.selectedIndex].dataset.long;
+
+  let cityName = event.target.options[event.target.selectedIndex].innerHTML;
+
+  cityNameText = document.createElement("p");
+  cityNameText.classList.add("city-name-text");
+  cityNameText.innerHTML = cityName;
+
+  cityNameDisplay.appendChild(cityNameText);
 
   fetch(
     "http://www.7timer.info/bin/api.pl?lon=" +
@@ -72,9 +84,9 @@ const getTheWeather = (event) => {
       allData.forEach((datum) => {
         const dateDisplay = document.createElement("p");
         dateDisplay.classList.add("date");
-        let dateToDisplay = datum.date;
+        let yyyymmdd = datum.date.toString();
 
-        console.log(dayjs(dateToDisplay).format("YYYY"));
+        let dateToDisplay = formatDate(yyyymmdd);
 
         dateDisplay.innerHTML = dateToDisplay;
 
@@ -85,27 +97,7 @@ const getTheWeather = (event) => {
         singleWeatherDisplay.classList.add("weather");
         let weather = datum.weather;
 
-        if (weather === "ishower") {
-          correctedWeather = "Isolated Showers";
-        } else if (weather === "lightrain") {
-          correctedWeather = "Light Rain";
-        } else if (weather === "lightsnow") {
-          correctedWeather = "Light Snow";
-        } else if (weather === "mcloudy") {
-          correctedWeather = "Mostly Cloudy";
-        } else if (weather === "oshower") {
-          correctedWeather = "Occassional Showers";
-        } else if (weather === "pcloudy") {
-          correctedWeather = "Partly Cloudy";
-        } else if (weather === "rainshow") {
-          correctedWeather = "Mix of Rain and Snow";
-        } else if (weather === "tsrain") {
-          correctedWeather = "Thunderstorms Possible";
-        } else if (weather === "tstorm") {
-          correctedWeather = "Thunderstorms";
-        } else {
-          correctedWeather = weather.charAt(0).toUpperCase() + weather.slice(1);
-        }
+        formatWeather(weather);
 
         singleWeatherDisplay.innerHTML = correctedWeather;
 
@@ -200,39 +192,7 @@ const getTheWeather = (event) => {
 
         let windSpeed = datum.wind10m_max;
 
-        if (windSpeed == 1) {
-          windSpeed = "Calm";
-        }
-
-        if (windSpeed == 2) {
-          windSpeed = "Light";
-        }
-
-        if (windSpeed == 3) {
-          windSpeed = "Moderate";
-        }
-
-        if (windSpeed == 4) {
-          windSpeed = "Fresh";
-        }
-
-        if (windSpeed == 5) {
-          windSpeed = "Strong";
-        }
-
-        if (windSpeed == 6) {
-          windSpeed = "Gale";
-        }
-
-        if (windSpeed == 7) {
-          windSpeed = "Storm";
-        }
-
-        if (windSpeed == 8) {
-          windSpeed = "HURRICANE!";
-        }
-
-        let wind = "Wind: " + windSpeed;
+        let wind = "Wind: " + formatWindSpeed(windSpeed);
 
         windDisplay.innerHTML = wind;
 
@@ -251,6 +211,91 @@ const getTheWeather = (event) => {
     .catch((err) => {
       console.warn(err);
     });
+};
+
+const formatDate = (yyyymmdd) => {
+  const year = yyyymmdd.substring(0, 4);
+  const month = yyyymmdd.substring(4, 6);
+  const day = yyyymmdd.substring(6, 8);
+
+  const date = new Date(`${year}-${month}-${day}`);
+
+  const dateOptions = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+
+  const formattedDate = date.toLocaleDateString(undefined, dateOptions);
+
+  return formattedDate;
+};
+
+const formatWindSpeed = (windSpeed) => {
+  if (windSpeed == 1) {
+    windSpeed = "Calm";
+  }
+
+  if (windSpeed == 2) {
+    windSpeed = "Light";
+  }
+
+  if (windSpeed == 3) {
+    windSpeed = "Moderate";
+  }
+
+  if (windSpeed == 4) {
+    windSpeed = "Fresh";
+  }
+
+  if (windSpeed == 5) {
+    windSpeed = "Strong";
+  }
+
+  if (windSpeed == 6) {
+    windSpeed = "Gale";
+  }
+
+  if (windSpeed == 7) {
+    windSpeed = "Storm";
+  }
+
+  if (windSpeed == 8) {
+    windSpeed = "HURRICANE!";
+  }
+
+  return windSpeed;
+};
+
+const formatWeather = (weather) => {
+  if (weather === "ishower") {
+    correctedWeather = "Isolated Showers";
+  } else if (weather === "lightrain") {
+    correctedWeather = "Light Rain";
+  } else if (weather === "lightsnow") {
+    correctedWeather = "Light Snow";
+  } else if (weather === "mcloudy") {
+    correctedWeather = "Mostly Cloudy";
+  } else if (weather === "oshower") {
+    correctedWeather = "Occassional Showers";
+  } else if (weather === "pcloudy") {
+    correctedWeather = "Partly Cloudy";
+  } else if (weather === "rainshow") {
+    correctedWeather = "Mix of Rain and Snow";
+  } else if (weather === "tsrain") {
+    correctedWeather = "Thunderstorms Possible";
+  } else if (weather === "tstorm") {
+    correctedWeather = "Thunderstorms";
+  } else {
+    correctedWeather = weather.charAt(0).toUpperCase() + weather.slice(1);
+  }
+
+  return correctedWeather;
+};
+
+const resetCityNameDisplay = () => {
+  if (cityNameText) cityNameDisplay.innerHTML = "";
 };
 
 const resetWeatherDisplay = () => {
