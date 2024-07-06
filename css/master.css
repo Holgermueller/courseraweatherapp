@@ -135,9 +135,23 @@ footer a {
     display: grid;
   }
 
+  select {
+    width: 40%;
+  }
+
   .weather-display {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .weather-block {
+    margin: 8px;
+    width: 95%;
+  }
+
+  .date {
+    font-size: 1rem;
   }
 }

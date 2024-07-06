@@ -21,12 +21,12 @@ async function createSelector() {
       for (let i = 1; i < lines.length; i++) {
         let obj = {};
         let currentLine = lines[i].split(",");
-
         for (let j = 0; j < headers.length; j++) {
           obj[headers[j]] = currentLine[j];
         }
         result.push(obj);
       }
+
       for (let i = 0; i < result.length; i++) {
         const selector = document.getElementById("citySelector");
         let opt = document.createElement("option");
@@ -35,7 +35,12 @@ async function createSelector() {
         opt.setAttribute("data-long", result[i].longitude);
         opt.setAttribute("value", result[i].city);
 
+        if (result[i].country === undefined || result[i].country === null) {
+          delete result[i].country;
+        }
+
         opt.innerHTML = result[i].city + ", " + result[i].country;
+
         selector.appendChild(opt);
       }
     });
