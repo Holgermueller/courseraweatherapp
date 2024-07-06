@@ -6,12 +6,6 @@ const selectedCity = document.getElementById("citySelector");
 const weatherDisplay = document.getElementById("weatherDisplay");
 const proc = document.getElementById("processing");
 
-const showDate = () => {
-  let DateTime = luxon.DateTime.toLocaleString();
-};
-
-showDate();
-
 async function createSelector() {
   await fetch("../city_coordinates.csv")
     .then((response) => {
@@ -79,6 +73,9 @@ const getTheWeather = (event) => {
         const dateDisplay = document.createElement("p");
         dateDisplay.classList.add("date");
         let dateToDisplay = datum.date;
+
+        console.log(dayjs(dateToDisplay).format("YYYY"));
+
         dateDisplay.innerHTML = dateToDisplay;
 
         const iconDisplay = document.createElement("img");
@@ -192,7 +189,52 @@ const getTheWeather = (event) => {
         fahrenheitDisplay.classList.add("fahrenheits");
 
         fahrenheitDisplay.innerHTML =
-          "H: " + maxFahreneheit + "&deg;F/L: " + minFahrenheit + "&deg;F";
+          "H: " +
+          Math.ceil(maxFahreneheit) +
+          "&deg;F/L: " +
+          Math.ceil(minFahrenheit) +
+          "&deg;F";
+
+        const windDisplay = document.createElement("p");
+        windDisplay.classList.add("wind-speed");
+
+        let windSpeed = datum.wind10m_max;
+
+        if (windSpeed == 1) {
+          windSpeed = "Calm";
+        }
+
+        if (windSpeed == 2) {
+          windSpeed = "Light";
+        }
+
+        if (windSpeed == 3) {
+          windSpeed = "Moderate";
+        }
+
+        if (windSpeed == 4) {
+          windSpeed = "Fresh";
+        }
+
+        if (windSpeed == 5) {
+          windSpeed = "Strong";
+        }
+
+        if (windSpeed == 6) {
+          windSpeed = "Gale";
+        }
+
+        if (windSpeed == 7) {
+          windSpeed = "Storm";
+        }
+
+        if (windSpeed == 8) {
+          windSpeed = "HURRICANE!";
+        }
+
+        let wind = "Wind: " + windSpeed;
+
+        windDisplay.innerHTML = wind;
 
         weatherBlock = document.createElement("div");
         weatherBlock.classList.add("weather-block");
@@ -201,6 +243,7 @@ const getTheWeather = (event) => {
         weatherBlock.appendChild(singleWeatherDisplay);
         weatherBlock.appendChild(tempDisplay);
         weatherBlock.appendChild(fahrenheitDisplay);
+        weatherBlock.appendChild(windDisplay);
 
         weatherDisplay.appendChild(weatherBlock);
       });

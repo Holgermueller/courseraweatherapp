@@ -67,6 +67,7 @@ html {
 
 .date {
   color: var(--yellow);
+  margin: 12px;
 }
 
 .icon-display {
