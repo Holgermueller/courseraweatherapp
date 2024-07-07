@@ -95,14 +95,14 @@ const getTheWeather = (event) => {
 
         dateDisplay.innerHTML = dateToDisplay;
 
-        const iconDisplay = document.createElement("img");
-        iconDisplay.classList.add("icon-display");
-
         const singleWeatherDisplay = document.createElement("p");
         singleWeatherDisplay.classList.add("weather");
         let weather = datum.weather;
 
         formatWeather(weather);
+
+        const iconDisplay = document.createElement("img");
+        iconDisplay.classList.add("icon-display");
 
         singleWeatherDisplay.innerHTML = correctedWeather;
 
@@ -222,7 +222,6 @@ const formatDate = (yyyymmdd) => {
   const year = yyyymmdd.substring(0, 4);
   const month = yyyymmdd.substring(4, 6);
   const day = yyyymmdd.substring(6, 8);
-
   const date = new Date(`${year}-${month}-${day}`);
 
   const dateOptions = {
@@ -315,25 +314,24 @@ const hideProcessing = () => {
   proc.style.display = "none";
 };
 
+let fTempsToDisplay = document.getElementsByClassName("fahrenheits");
+let cTempsToDisplay = document.getElementsByClassName("temps");
+
 const seeF = () => {
-  let cTempsToDisplay = document.getElementsByClassName("temps");
   for (let i = 0; i < cTempsToDisplay.length; i++) {
     cTempsToDisplay[i].style.display = "none";
   }
 
-  let fTempsToDisplay = document.getElementsByClassName("fahrenheits");
   for (let i = 0; i < fTempsToDisplay.length; i++) {
     fTempsToDisplay[i].style.display = "block";
   }
 };
 
 const seeC = () => {
-  let cTempsToDisplay = document.getElementsByClassName("temps");
   for (let i = 0; i < cTempsToDisplay.length; i++) {
     cTempsToDisplay[i].style.display = "block";
   }
 
-  let fTempsToDisplay = document.getElementsByClassName("fahrenheits");
   for (let i = 0; i < fTempsToDisplay.length; i++) {
     fTempsToDisplay[i].style.display = "none";
   }
