@@ -35,11 +35,11 @@ async function createSelector() {
         opt.setAttribute("data-long", result[i].longitude);
         opt.setAttribute("value", result[i].city);
 
-        if (result[i].country === undefined || result[i].country === null) {
-          delete result[i].country;
-        }
-
         opt.innerHTML = result[i].city + ", " + result[i].country;
+
+        if (result[i].country == null) {
+          opt.innerHTML = result[i].city;
+        }
 
         selector.appendChild(opt);
       }

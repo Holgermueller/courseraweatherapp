@@ -143,12 +143,12 @@ footer a {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    width: 100%;
+    width: 95%;
   }
 
   .weather-block {
     margin: 8px;
-    width: 95%;
+    width: 90%;
   }
 
   .date {
