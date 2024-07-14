@@ -75,7 +75,7 @@ const getTheWeather = (event) => {
   cityNameDisplay.appendChild(cityNameText);
 
   fetch(
-    "http://www.7timer.info/bin/api.pl?lon=" +
+    "https://www.7timer.info/bin/api.pl?lon=" +
       longitude +
       "&lat=" +
       latitude +

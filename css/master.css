@@ -6,6 +6,7 @@
   --grey: hsl(211, 12%, 48%);
   --blue: hsl(240, 100%, 50%);
   --light-grey: hsl(0, 0%, 84%);
+  --opacity: hsla(0, 0%, 100%, 0.5);
 }
 
 body,
@@ -14,14 +15,24 @@ html {
   margin: 0;
   box-sizing: border-box;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url("../images/background.jpg");
+  background-color: cover;
   background-color: var(--light-grey);
   color: black;
   text-align: center;
 }
 
+main {
+  width: 90%;
+  margin: auto;
+}
+
 form {
   display: flex;
   flex-direction: column;
+  background-color: var(--opacity);
+  padding-bottom: 4%;
+  border-radius: 15px;
 }
 
 form * {
@@ -44,6 +55,7 @@ select {
 .display-area {
   margin: 5% 0;
   background-color: var(--blue);
+  border-radius: 15px;
   min-height: 50vh;
 }
 
@@ -124,6 +136,7 @@ footer {
   text-align: center;
   font-size: 0.75rem;
   padding: 8px auto;
+  background-color: var(--opacity);
 }
 
 footer a {
