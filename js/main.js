@@ -9,7 +9,7 @@ const cityNameDisplay = document.getElementById("cityNameDisplay");
 const proc = document.getElementById("processing");
 
 async function createSelector() {
-  await fetch("../city_coordinates.csv")
+  await fetch("./city_coordinates.csv")
     .then((response) => {
       return response.text();
     })
